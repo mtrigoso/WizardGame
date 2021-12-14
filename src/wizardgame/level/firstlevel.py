@@ -10,11 +10,12 @@ class FirstLevel(object):
     windowHeight = 500
     player = 0
 
-    def __init__(self):
+    def __init__(self, player: Player):
         self._running = True
         self._display_surf = None
         self._player_surf = None
-        self.player = Player()
+        self.player = player
+        self.player.y = 480 #manually set the player at the bottom of the screen (so it looks like they went through a door)
 
     def on_event(self, event):
         if event.type == QUIT:
@@ -32,8 +33,6 @@ class FirstLevel(object):
         pygame.quit()
 
     def on_init(self):
-        # pygame.init()
-        # self.myFont = pygame.font.SysFont("Times New Roman", 24)
         self._display_surf = pygame.display.set_mode((self.windowWidth, self.windowHeight), pygame.HWSURFACE)
         pygame.display.set_caption("Wizard Game First Level")
         self._running = True
@@ -47,6 +46,7 @@ class FirstLevel(object):
         while self._running:
             pygame.event.pump()
             keys = pygame.key.get_pressed()
+            print(f"{self.player.x}, {self.player.y}")
 
             if self.player.y > 480:
                 self._running = False

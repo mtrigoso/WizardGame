@@ -48,12 +48,12 @@ class App(object):
         while self._running:
             pygame.event.pump()
             keys = pygame.key.get_pressed()
+            print(f"{self.player.x}, {self.player.y}")
 
             if self.player.y < 0:
-                lvl1 = FirstLevel()
+                lvl1 = FirstLevel(self.player)
                 lvl1.on_execute()
-                self.player.y = 20
-
+                self.player.y = 0
 
             if (keys[K_RIGHT]):
                 self.player.moveRightI()
