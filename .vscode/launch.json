@@ -8,7 +8,7 @@
             "name": "Wizard Game",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/src/start.py",
+            "program": "${workspaceFolder}/src/wizardgame.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/src"
         }
