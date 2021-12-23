@@ -42,7 +42,6 @@ class FirstScene:
 
     def draw(self):
         pyxel.cls(0)
-
         for obj in self.game_objects:
             pyxel.blt(
                 obj.get_left_up_corner().x,
