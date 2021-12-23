@@ -1,18 +1,23 @@
 import pyxel
+from object.rock import Rock
 
 from player import Player
 from scene import Scene
 
 class FirstScene:
-    def __init__(self, player: Player):
+    def __init__(self, player: Player, rock: Rock):
         # pyxel.init(160, 120)
         self.player = player
+        self.rock = rock
         # self.player.y = 120
         # pyxel.load(self.player.asset)
         # pyxel.run(self.update, self.draw)
 
     def update(self):
-        print(f"{self.player.x},{self.player.y}")
+        self.rock.move_random()
+
+        print(f"Rock: {self.rock.x},{self.rock.y}")
+
         return self.update_player()
 
     def update_player(self):
@@ -33,13 +38,26 @@ class FirstScene:
 
     def draw(self):
         pyxel.cls(0)
+        # blt(x, y, img, u, v, w, h, [colkey])
+
+        #draw player
         pyxel.blt(
             self.player.x,
             self.player.y,
-            0, #index of the resource
-            16 if self.player.player_vy > 0 else 0,
+            0, 
+            0,
             0,
             16,
             16,
-            12,
+        )
+
+        #draw rock
+        pyxel.blt(
+            self.rock.x,
+            self.rock.y,
+            0, 
+            16,
+            0,
+            16,
+            16,
         )

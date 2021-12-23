@@ -1,6 +1,5 @@
 class Player:
-    def __init__(self, asset: str):
-        self.asset: str = asset
+    def __init__(self):
         self.x = 0
         self.y = 0
         self.player_vy = 0
