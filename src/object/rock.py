@@ -9,15 +9,18 @@ class Rock(GameObject):
         super().__init__()
         self.x = 50
         self.y = 50
+        self.speed = 1
+        self._bitmap_x = 16
+        self._bitmap_y = 0
     
     def move_random(self) -> Action:
         x = 0
         y = 0
         if self.x > 0:
-            x += random.randint(-1, 1)
+            x += random.randint(-self.speed, self.speed)
 
         if self.y > 0:
-            y += random.randint(-1, 1)
+            y += random.randint(-self.speed, self.speed)
 
         return Action(self.x, self.y, self.x + x, self.y + y)
 
@@ -39,3 +42,9 @@ class Rock(GameObject):
     def apply_action(self, action: Action):
         self.x = action.to_x
         self.y = action.to_y
+
+    def bitmap_x(self) -> int:
+        return self._bitmap_x
+
+    def bitmap_y(self) -> int:
+        return self._bitmap_y

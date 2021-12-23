@@ -11,18 +11,21 @@ class Player(GameObject):
         super().__init__()
         self.x = 0
         self.y = 0
+        self.speed = 5
+        self._bitmap_x = 0
+        self._bitmap_y = 0
 
     def go_left(self) -> Action:
-        return Action(self.x, self.y, self.x-1, self.y)
+        return Action(self.x, self.y, self.x-self.speed, self.y)
 
     def go_right(self) -> Action:
-        return Action(self.x, self.y, self.x+1, self.y)
+        return Action(self.x, self.y, self.x+self.speed, self.y)
 
     def go_up(self) -> Action:
-        return Action(self.x, self.y, self.x, self.y-1)
+        return Action(self.x, self.y, self.x, self.y-self.speed)
 
     def go_down(self) -> Action:
-        return Action(self.x, self.y, self.x, self.y+1)
+        return Action(self.x, self.y, self.x, self.y+self.speed)
     
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
@@ -53,3 +56,9 @@ class Player(GameObject):
     def apply_action(self, action: Action):
         self.x = action.to_x
         self.y = action.to_y
+
+    def bitmap_x(self) -> int:
+        return self._bitmap_x
+
+    def bitmap_y(self) -> int:
+        return self._bitmap_y

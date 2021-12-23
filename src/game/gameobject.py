@@ -31,3 +31,11 @@ class GameObject(object):
     @overload 
     def apply_action(self, action: Action):
         pass
+
+    @overload 
+    def bitmap_x(self) -> int:
+        pass
+
+    @overload 
+    def bitmap_y(self) -> int:
+        pass

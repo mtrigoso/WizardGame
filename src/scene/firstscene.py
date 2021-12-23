@@ -43,24 +43,13 @@ class FirstScene:
     def draw(self):
         pyxel.cls(0)
 
-        #draw player
-        pyxel.blt(
-            self.player.x,
-            self.player.y,
-            0, 
-            0,
-            0,
-            16,
-            16,
-        )
-
-        #draw rock
-        pyxel.blt(
-            self.rock.x,
-            self.rock.y,
-            0, 
-            16,
-            0,
-            16,
-            16,
-        )
+        for obj in self.game_objects:
+            pyxel.blt(
+                obj.get_left_up_corner().x,
+                obj.get_left_up_corner().y,
+                0,
+                obj.bitmap_x(),
+                obj.bitmap_y(),
+                16,
+                16,
+            )
