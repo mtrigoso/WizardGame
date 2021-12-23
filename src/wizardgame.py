@@ -2,7 +2,7 @@ import pyxel
 from object.rock import Rock
 
 from player import Player
-from scene_manager import SceneManager
+from manager.scenemanager import SceneManager
 
 class WizardGame:
     def __init__(self):

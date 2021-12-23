@@ -5,11 +5,8 @@ from scene import Scene
 
 class SecondScene:
     def __init__(self, player: Player):
-        # pyxel.init(160, 120)
         self.player = player
         self.player.y = 120
-        # pyxel.load(self.player.asset)
-        # pyxel.run(self.update, self.draw)
 
     def update(self):
         print(f"{self.player.x},{self.player.y}")
@@ -37,7 +34,7 @@ class SecondScene:
             self.player.x,
             self.player.y,
             0, #index of the resource
-            16 if self.player.player_vy > 0 else 0,
+            0,
             0,
             16,
             16,

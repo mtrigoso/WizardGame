@@ -1,15 +1,9 @@
 import pyxel
-from firstscene import FirstScene
+from scene.firstscene import FirstScene
 from object.rock import Rock
 from player import Player
-# import mission_select
-# import menu
 from scene import Scene
-# import mission_manager
-# import missions
-import sys
-
-from secondscene import SecondScene
+from scene.secondscene import SecondScene
 
 class SceneManager():
 

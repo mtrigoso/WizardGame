@@ -9,4 +9,3 @@ class Scene(enum.IntEnum):
     # SETTINGS = 3
     # QUIT = 4
     # MISSION = 5
-
