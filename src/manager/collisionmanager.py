@@ -1,14 +1,15 @@
 from game.gameobject import GameObject
+from move.coordinate import Coordinate
 
 
 class CollisionManager:
     def __init__(self) -> None:
         pass
 
-    def would_collide(self): 
-        pass
+    # def would_collide(self, coord1: Coordinate, ): 
+    #     pass
 
-    def test_collision(self, object1: GameObject, object2: GameObject) -> bool:
+    def are_colliding(self, object1: GameObject, object2: GameObject) -> bool:
         """OK listen up boils an ghouls, here's how we're doing collision. It's currently two days before Christmas and I'm hyped up on python so lets go
 
            Since all objects are squares, simple check each corner of square 1 and see if it's coordinate is bounded by the square of object 2

@@ -1,25 +1,15 @@
-import random
+
 from game.gameobject import GameObject
 from move.action import Action
-
 from move.coordinate import Coordinate
 
-class Rock(GameObject):
-    def __init__(self):
+
+class TempGameObject(GameObject):
+    def __init__(self, x: int, y: int):
         super().__init__()
-        self.x = 50
-        self.y = 50
-    
-    def move_random(self) -> Action:
-        x = 0
-        y = 0
-        if self.x > 0:
-            x += random.randint(-1, 1)
-
-        if self.y > 0:
-            y += random.randint(-1, 1)
-
-        return Action(self.x, self.y, self.x + x, self.y + y)
+        self.x = x
+        self.y = y
+        
 
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
@@ -32,10 +22,3 @@ class Rock(GameObject):
 
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self.OBJECT_WIDTH, self.y)
-
-    def get_action(self) -> Action:
-        return self.move_random()
-
-    def apply_action(self, action: Action):
-        self.x = action.to_x
-        self.y = action.to_y

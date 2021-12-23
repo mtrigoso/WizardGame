@@ -1,33 +1,55 @@
 from typing import overload
+
+import pyxel
 from game.gameobject import GameObject
+from move.action import Action
 from move.coordinate import Coordinate
 
 
 class Player(GameObject):
     def __init__(self):
+        super().__init__()
         self.x = 0
         self.y = 0
 
-    def go_left(self) Coor:
-        # self.x = self.x - 1
+    def go_left(self) -> Action:
+        return Action(self.x, self.y, self.x-1, self.y)
 
-    def go_right(self):
-        self.x = self.x + 1
+    def go_right(self) -> Action:
+        return Action(self.x, self.y, self.x+1, self.y)
 
-    def go_up(self):
-        self.y = self.y - 1
+    def go_up(self) -> Action:
+        return Action(self.x, self.y, self.x, self.y-1)
 
-    def go_down(self):
-        self.y = self.y + 1
+    def go_down(self) -> Action:
+        return Action(self.x, self.y, self.x, self.y+1)
     
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
 
     def get_left_down_corner(self) -> Coordinate:
-        return Coordinate(self.x, self.y + 16)
+        return Coordinate(self.x, self.y + self.OBJECT_WIDTH)
 
     def get_right_down_corner(self) -> Coordinate:
-        return Coordinate(self.x + 16, self.y + 16)
+        return Coordinate(self.x + self.OBJECT_WIDTH, self.y + self.OBJECT_WIDTH)
 
     def get_right_up_corner(self) -> Coordinate:
-        return Coordinate(self.x + 16, self.y)
+        return Coordinate(self.x + self.OBJECT_WIDTH, self.y)
+
+    def get_action(self) -> Action:
+        if pyxel.btn(pyxel.KEY_LEFT):
+            return self.go_left()
+
+        if pyxel.btn(pyxel.KEY_RIGHT):
+            return self.go_right()
+
+        if pyxel.btn(pyxel.KEY_UP):
+            return self.go_up()
+
+        if pyxel.btn(pyxel.KEY_DOWN):
+            return self.go_down()
+        return None
+
+    def apply_action(self, action: Action):
+        self.x = action.to_x
+        self.y = action.to_y
