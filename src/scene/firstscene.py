@@ -49,6 +49,6 @@ class FirstScene:
                 0,
                 obj.bitmap_x(),
                 obj.bitmap_y(),
-                16,
-                16,
+                obj.OBJECT_WIDTH,
+                obj.OBJECT_WIDTH,
             )
