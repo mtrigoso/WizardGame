@@ -12,17 +12,6 @@ class Rock(GameObject):
         self._speed = 1
         self._bitmap_x = 16
         self._bitmap_y = 0
-    
-    def move_random(self) -> Action:
-        x = 0
-        y = 0
-        if self.x > 0:
-            x += random.randint(-self._speed, self._speed)
-
-        if self.y > 0:
-            y += random.randint(-self._speed, self._speed)
-
-        return Action(self.x, self.y, self.x + x, self.y + y)
 
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
@@ -37,7 +26,7 @@ class Rock(GameObject):
         return Coordinate(self.x + self.OBJECT_WIDTH, self.y)
 
     def get_action(self) -> Action:
-        return self.move_random()
+        return None
 
     def apply_action(self, action: Action):
         self.x = action.to_x

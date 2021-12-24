@@ -4,18 +4,17 @@ from game.gameobject import GameObject
 from game.tempgameobject import TempGameObject
 from manager.collisionmanager import CollisionManager
 from move.action import Action
-from object.rock import Rock
+from game.object.rock import Rock
 
 from player import Player
 from scene import Scene
 from scene.sceneobject import SceneObject
 
 class FirstScene(SceneObject):
-    def __init__(self, player: Player, rock: Rock):
+    def __init__(self, player: Player, enemies: List[GameObject]):
         super().__init__()
         self.player = player
-        self.rock = rock
-        self.game_objects: List[GameObject] = [self.player, self.rock]
+        self.game_objects: List[GameObject] = [self.player] + enemies
         self.collisionManager = CollisionManager()
 
     def take_action(self, game_object: GameObject, action: Action, other_game_objects: List[GameObject]): 
