@@ -3,12 +3,13 @@ from scene.firstscene import FirstScene
 from object.rock import Rock
 from player import Player
 from scene import Scene
+from scene.sceneobject import SceneObject
 from scene.secondscene import SecondScene
 
 class SceneManager():
 
     def __init__(self, player: Player, rock: Rock):
-        self.scene = FirstScene(player, rock)
+        self.scene: SceneObject = FirstScene(player, rock)
         self.player = player
         self.rock = rock
 
