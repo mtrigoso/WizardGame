@@ -3,7 +3,7 @@ import pyxel
 from game.gameobject import GameObject
 from game.tempgameobject import TempGameObject
 from manager.collisionmanager import CollisionManager
-from move.action import Action
+from move.movementaction import MovementAction
 from game.object.rock import Rock
 
 from player import Player
@@ -17,7 +17,7 @@ class FirstScene(SceneObject):
         self.game_objects: List[GameObject] = [self.player] + enemies
         self.collisionManager = CollisionManager()
 
-    def take_action(self, game_object: GameObject, action: Action, other_game_objects: List[GameObject]): 
+    def take_action(self, game_object: GameObject, action: MovementAction, other_game_objects: List[GameObject]): 
         anon_game_object = TempGameObject(action.to_x, action.to_y)
         # for each other game object, if the object in question is coliding with ONE of them, the action may not proceed
         for other_obj in other_game_objects:
@@ -49,6 +49,6 @@ class FirstScene(SceneObject):
                 0,
                 obj.bitmap_x(),
                 obj.bitmap_y(),
-                obj.OBJECT_WIDTH,
+                obj.get_obj_horiz_tilemap_size(),
                 obj.OBJECT_WIDTH,
             )

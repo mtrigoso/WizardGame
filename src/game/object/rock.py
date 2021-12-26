@@ -1,6 +1,6 @@
 import random
 from game.gameobject import GameObject
-from move.action import Action
+from move.movementaction import MovementAction
 
 from move.coordinate import Coordinate
 
@@ -25,10 +25,10 @@ class Rock(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self.OBJECT_WIDTH, self.y)
 
-    def get_action(self) -> Action:
+    def get_action(self) -> MovementAction:
         return None
 
-    def apply_action(self, action: Action):
+    def apply_action(self, action: MovementAction):
         self.x = action.to_x
         self.y = action.to_y
 
@@ -37,3 +37,6 @@ class Rock(GameObject):
 
     def bitmap_y(self) -> int:
         return self._bitmap_y
+
+    def get_obj_horiz_tilemap_size(self) -> int:
+        return self.OBJECT_WIDTH

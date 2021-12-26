@@ -1,6 +1,6 @@
 
 from game.gameobject import GameObject
-from move.action import Action
+from move.movementaction import MovementAction
 from move.coordinate import Coordinate
 
 
