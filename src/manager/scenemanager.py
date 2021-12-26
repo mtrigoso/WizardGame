@@ -3,7 +3,7 @@ import pyxel
 from game.gameobject import GameObject
 from scene.firstscene import FirstScene
 from game.object.rock import Rock
-from player import Player
+from user.player import Player
 from scene import Scene
 from scene.sceneobject import SceneObject
 from scene.secondscene import SecondScene

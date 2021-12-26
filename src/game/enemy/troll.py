@@ -28,13 +28,13 @@ class Troll(GameObject):
         return Coordinate(self.x, self.y)
 
     def get_left_down_corner(self) -> Coordinate:
-        return Coordinate(self.x, self.y + self.OBJECT_WIDTH)
+        return Coordinate(self.x, self.y + self._object_width)
 
     def get_right_down_corner(self) -> Coordinate:
-        return Coordinate(self.x + self.OBJECT_WIDTH, self.y + self.OBJECT_WIDTH)
+        return Coordinate(self.x + self._object_width, self.y + self._object_width)
 
     def get_right_up_corner(self) -> Coordinate:
-        return Coordinate(self.x + self.OBJECT_WIDTH, self.y)
+        return Coordinate(self.x + self._object_width, self.y)
 
     def get_action(self) -> MovementAction:
         return self.move_random()
@@ -50,4 +50,7 @@ class Troll(GameObject):
         return self._bitmap_y
 
     def get_obj_horiz_tilemap_size(self) -> int:
-        return self.OBJECT_WIDTH
+        return self._object_width
+
+    def get_obj_vert_tilemap_size(self) -> int:
+        return self._object_height

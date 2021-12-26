@@ -1,5 +1,3 @@
-from typing import overload
-
 import pyxel
 from game.gameobject import GameObject
 from move.movementaction import MovementAction
@@ -22,22 +20,22 @@ class Player(GameObject):
         return MovementAction(self.x, self.y, self.x+self._speed, self.y, -1)
 
     def go_up(self) -> MovementAction:
-        return MovementAction(self.x, self.y, self.x, self.y-self._speed, self._horizontal_direction)
+        return MovementAction(self.x, self.y, self.x, self.y-self._speed, 1)
 
     def go_down(self) -> MovementAction:
-        return MovementAction(self.x, self.y, self.x, self.y+self._speed, self._horizontal_direction)
+        return MovementAction(self.x, self.y, self.x, self.y+self._speed, -1)
     
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
 
     def get_left_down_corner(self) -> Coordinate:
-        return Coordinate(self.x, self.y + self.OBJECT_WIDTH)
+        return Coordinate(self.x, self.y + self._object_width)
 
     def get_right_down_corner(self) -> Coordinate:
-        return Coordinate(self.x + self.OBJECT_WIDTH, self.y + self.OBJECT_WIDTH)
+        return Coordinate(self.x + self._object_width, self.y + self._object_width)
 
     def get_right_up_corner(self) -> Coordinate:
-        return Coordinate(self.x + self.OBJECT_WIDTH, self.y)
+        return Coordinate(self.x + self._object_width, self.y)
 
     def get_action(self) -> MovementAction:
         if pyxel.btn(pyxel.KEY_LEFT):
@@ -57,6 +55,7 @@ class Player(GameObject):
         self.x = action.to_x
         self.y = action.to_y
         self._horizontal_direction = action.horiz_dir
+        self._vertical_direction = action.vert_dir
 
     def bitmap_x(self) -> int:
         return self._bitmap_x
@@ -65,4 +64,7 @@ class Player(GameObject):
         return self._bitmap_y
 
     def get_obj_horiz_tilemap_size(self) -> int:
-        return self._horizontal_direction * self.OBJECT_WIDTH
+        return self._horizontal_direction * self._object_width
+
+    def get_obj_vert_tilemap_size(self) -> int:
+        return self._vertical_direction * self._object_height

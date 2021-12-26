@@ -4,7 +4,7 @@ from game.gameobject import GameObject
 from game.tempgameobject import TempGameObject
 from move.movementaction import MovementAction
 
-from player import Player
+from user.player import Player
 from scene import Scene
 from scene.sceneobject import SceneObject
 
@@ -47,6 +47,6 @@ class SecondScene(SceneObject):
                 0,
                 obj.bitmap_x(),
                 obj.bitmap_y(),
-                obj.OBJECT_WIDTH,
-                obj.OBJECT_WIDTH,
+                obj._object_width,
+                obj._object_width,
             )

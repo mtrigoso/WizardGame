@@ -1,12 +1,13 @@
 from typing import List
 import pyxel
 from game.gameobject import GameObject
+from game.projectile.lightningbolt import LightningBolt
 from game.tempgameobject import TempGameObject
 from manager.collisionmanager import CollisionManager
 from move.movementaction import MovementAction
 from game.object.rock import Rock
 
-from player import Player
+from user.player import Player
 from scene import Scene
 from scene.sceneobject import SceneObject
 
@@ -43,6 +44,14 @@ class FirstScene(SceneObject):
     def draw(self):
         pyxel.cls(0)
         for obj in self.game_objects:
+            if isinstance(obj, LightningBolt):
+                x = obj.get_left_up_corner().x,
+                y = obj.get_left_up_corner().y,
+                bitmap_x = obj.bitmap_x(),
+                bitmap_y = obj.bitmap_y(),
+                horiz_size = obj.get_obj_horiz_tilemap_size(),
+                vert_size = obj.get_obj_vert_tilemap_size(),
+
             pyxel.blt(
                 obj.get_left_up_corner().x,
                 obj.get_left_up_corner().y,
@@ -50,5 +59,5 @@ class FirstScene(SceneObject):
                 obj.bitmap_x(),
                 obj.bitmap_y(),
                 obj.get_obj_horiz_tilemap_size(),
-                obj.OBJECT_WIDTH,
+                obj.get_obj_vert_tilemap_size(),
             )

@@ -1,17 +1,29 @@
 import random
 from game.gameobject import GameObject
+from move.coordinate import Coordinate
 from move.movementaction import MovementAction
 
-from move.coordinate import Coordinate
 
-class Rock(GameObject):
-    def __init__(self):
+class LightningBolt(GameObject):
+    def __init__(self, x, y):
         super().__init__()
-        self.x = 50
-        self.y = 50
+        self.x = x
+        self.y = y
         self._speed = 1
-        self._bitmap_x = 16
+        self._bitmap_x = 48
         self._bitmap_y = 0
+        self._object_height = 8
+    
+    def move_random(self) -> MovementAction:
+        x = 0
+        y = 0
+        if self.x > 0:
+            x += random.randint(-self._speed, self._speed)
+
+        if self.y > 0:
+            y += random.randint(-self._speed, self._speed)
+
+        return MovementAction(self.x, self.y, self.x + x, self.y + y)
 
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
@@ -26,7 +38,7 @@ class Rock(GameObject):
         return Coordinate(self.x + self._object_width, self.y)
 
     def get_action(self) -> MovementAction:
-        return None
+        return self.move_random()
 
     def apply_action(self, action: MovementAction):
         self.x = action.to_x
