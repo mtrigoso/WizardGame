@@ -9,8 +9,8 @@ class CollisionManager:
     def are_colliding(self, object1: GameObject, object2: GameObject, lightning_bolt=False):
         """check if object1 has a corner in object2 or object2 has a corner in object1
         """
-        obj1_in_obj2 = self.obj1_in_obj2_temp(object1, object2, lightning_bolt)
-        obj2_in_obj1 = self.obj1_in_obj2_temp(object2, object1, lightning_bolt)
+        obj1_in_obj2 = self.obj1_in_obj2(object1, object2, lightning_bolt)
+        obj2_in_obj1 = self.obj1_in_obj2(object2, object1, lightning_bolt)
         return obj1_in_obj2 or obj2_in_obj1
 
     def obj1_in_obj2(self, object1: GameObject, object2: GameObject, lightning_bolt=False) -> bool:
