@@ -15,7 +15,7 @@ class WizardGame:
                 Rock(), 
                 Troll(75, 75), 
                 Troll(100, 100),
-                LightningBolt(20, 10),
+                LightningBolt(20, 50),
             ]
         )
         pyxel.load("assets/wizardgame.pyxres") 

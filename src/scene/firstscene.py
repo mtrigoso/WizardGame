@@ -19,13 +19,10 @@ class FirstScene(SceneObject):
         self.collisionManager = CollisionManager()
 
     def take_action(self, game_object: GameObject, action: MovementAction, other_game_objects: List[GameObject]): 
-        anon_game_object = TempGameObject(action.to_x, action.to_y)
+        anon_game_object = TempGameObject(action.to_x, action.to_y, game_object._object_width, game_object._object_height)
         # for each other game object, if the object in question is coliding with ONE of them, the action may not proceed
         for other_obj in other_game_objects:
-            if isinstance(game_object, LightningBolt) and self.collisionManager.are_colliding(anon_game_object, other_obj):
-                idk = 34
             if self.collisionManager.are_colliding(anon_game_object, other_obj):
-                print("coliding!!")
                 return
 
         game_object.apply_action(action)
