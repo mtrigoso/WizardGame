@@ -15,6 +15,7 @@ class LightningBolt(GameObject):
         self._object_height = 8
     
     def move_random(self) -> MovementAction:
+        # return None
         x = 0
         y = 0
         if self.x > 0:
@@ -22,6 +23,7 @@ class LightningBolt(GameObject):
 
         if self.y > 0:
             y += random.randint(-self._speed, self._speed)
+            # y -= 1
 
         return MovementAction(self.x, self.y, self.x + x, self.y + y)
 

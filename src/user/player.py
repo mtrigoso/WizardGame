@@ -9,7 +9,7 @@ class Player(GameObject):
         super().__init__()
         self.x = 0
         self.y = 0
-        self._speed = 5
+        self._speed = 1
         self._bitmap_x = 0
         self._bitmap_y = 0
 
