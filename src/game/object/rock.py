@@ -8,10 +8,12 @@ from move.coordinate import Coordinate
 from scene import Scene
 
 class Rock(GameObject):
-    def __init__(self):
+    def __init__(self, x, y):
         super().__init__()
-        self.x = 50
-        self.y = 50
+        # self.x = 50
+        # self.y = 50
+        self.x = x
+        self.y = y
         self._speed = 1
         self._bitmap_x = 16
         self._bitmap_y = 0

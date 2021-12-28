@@ -23,6 +23,16 @@ class LightningBolt(GameObject):
         if self._move_vector == MoveVector.RIGHT:
             return MovementAction(self.x, self.y, self.x + self._speed, self.y)
 
+        if self._move_vector == MoveVector.LEFT:
+            return MovementAction(self.x, self.y, self.x - self._speed, self.y)
+
+        if self._move_vector == MoveVector.UP:
+            return MovementAction(self.x, self.y, self.x, self.y - self._speed)
+
+        if self._move_vector == MoveVector.DOWN:
+            return MovementAction(self.x, self.y, self.x, self.y + self._speed)
+
+
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
 

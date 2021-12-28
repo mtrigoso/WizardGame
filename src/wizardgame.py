@@ -15,7 +15,7 @@ class WizardGame:
         self.game_state = GameState.instance()
         self.scene_manager = SceneManager(self.player, 
             [
-                Rock(), 
+                Rock(50, 50), 
                 Troll(75, 75), 
                 Troll(100, 100),
             ],
