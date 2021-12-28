@@ -2,6 +2,7 @@ import pyxel
 from battle.projectileaction import ProjectileAction
 from game.action.gameaction import GameAction
 from game.gameobject import GameObject
+from game.gamestate import GameState
 from game.projectile.lightningbolt import LightningBolt
 from move.movementaction import MovementAction
 from move.coordinate import Coordinate
@@ -42,7 +43,7 @@ class Player(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_action(self) -> GameAction:
+    def get_action(self, game_state: GameState) -> GameAction:
         if pyxel.btn(pyxel.KEY_LEFT):
             return self.go_left()
 

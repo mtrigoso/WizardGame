@@ -1,5 +1,6 @@
 import pyxel
 from game.enemy.troll import Troll
+from game.gamestate import GameState
 from game.object.rock import Rock
 from game.projectile.lightningbolt import LightningBolt
 
@@ -10,12 +11,14 @@ class WizardGame:
     def __init__(self):
         pyxel.init(160, 120)
         self.player = Player()
+        self.game_state = GameState.instance()
         self.scene_manager = SceneManager(self.player, 
             [
                 Rock(), 
                 Troll(75, 75), 
                 Troll(100, 100),
-            ]
+            ],
+            self.game_state
         )
         pyxel.load("assets/wizardgame.pyxres") 
         pyxel.run(self.update, self.draw)

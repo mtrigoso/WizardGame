@@ -1,6 +1,7 @@
 import random
 from game.action.gameaction import GameAction
 from game.gameobject import GameObject
+from game.gamestate import GameState
 from move.coordinate import Coordinate
 from move.movementaction import MovementAction
 from move.movevector import MoveVector
@@ -33,7 +34,7 @@ class LightningBolt(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_action(self) -> GameAction:
+    def get_action(self, game_state: GameState) -> GameAction:
         return self.move_in_direction()
 
     def apply_action(self, action: MovementAction):
