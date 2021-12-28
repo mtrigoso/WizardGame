@@ -60,7 +60,7 @@ class Player(GameObject):
 
         if pyxel.btn(pyxel.KEY_SPACE):
             if not any(obj for obj in game_state.objects_in_scene(scene) if type(obj) == LightningBolt):
-                return ProjectileAction(LightningBolt, MoveVector.LEFT, self.x - 16, self.y)
+                return ProjectileAction(LightningBolt, MoveVector.RIGHT, self.x + 16, self.y)
 
         return None
 

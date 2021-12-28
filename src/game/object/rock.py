@@ -10,8 +10,6 @@ from scene import Scene
 class Rock(GameObject):
     def __init__(self, x, y):
         super().__init__()
-        # self.x = 50
-        # self.y = 50
         self.x = x
         self.y = y
         self._speed = 1

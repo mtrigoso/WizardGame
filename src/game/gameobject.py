@@ -11,8 +11,6 @@ class GameObject(object):
         super().__init__()
         self._object_width: int = 16
         self._object_height: int = 16
-        self._horizontal_direction = 1 # positive one is no filp, -1 is flip
-        self._vertical_direction = 1 # positive one is no filp, -1 is flip
         self.x = 0
         self.y = 0
         self._speed = 1

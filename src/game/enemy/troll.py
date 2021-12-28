@@ -20,12 +20,11 @@ class Troll(GameObject):
         self._move_vector: MoveVector = MoveVector.LEFT
 
     def move_random(self) -> MovementAction:
-        direction = random.choice(
-            [MoveVector.LEFT, MoveVector.RIGHT, MoveVector.UP, MoveVector.DOWN])
-
         x = 0
         y = 0
 
+        direction = random.choice(
+            [MoveVector.LEFT, MoveVector.RIGHT, MoveVector.UP, MoveVector.DOWN])
         if direction == MoveVector.LEFT:
             x = -1
         elif direction == MoveVector.RIGHT:

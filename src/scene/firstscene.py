@@ -42,8 +42,6 @@ class FirstScene(SceneObject):
     def draw(self):
         pyxel.cls(0)
         for obj in self._game_state.objects_in_scene(self.SCENE_TYPE):
-            # if isinstance(obj, LightningBolt):
-            #     print(f"{obj.get_left_up_corner().x}, {obj.get_left_up_corner().y}")
             pyxel.blt(
                 obj.get_left_up_corner().x,
                 obj.get_left_up_corner().y,
