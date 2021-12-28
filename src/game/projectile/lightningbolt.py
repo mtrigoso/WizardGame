@@ -5,14 +5,15 @@ from game.gamestate import GameState
 from move.coordinate import Coordinate
 from move.movementaction import MovementAction
 from move.movevector import MoveVector
+from scene import Scene
 
 
 class LightningBolt(GameObject):
-    def __init__(self, direction: MoveVector):
+    def __init__(self, direction: MoveVector, x: int, y: int):
         super().__init__()
-        self.x = 20
-        # self.y = y
-        self._speed = 1
+        self.x = x
+        self.y = y
+        self._speed = 2
         self._bitmap_x = 48
         self._bitmap_y = 0
         self._object_height = 8
@@ -34,7 +35,7 @@ class LightningBolt(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_action(self, game_state: GameState) -> GameAction:
+    def get_action(self, game_state: GameState, scene: Scene) -> GameAction:
         return self.move_in_direction()
 
     def apply_action(self, action: MovementAction):

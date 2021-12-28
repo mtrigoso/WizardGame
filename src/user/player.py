@@ -7,6 +7,7 @@ from game.projectile.lightningbolt import LightningBolt
 from move.movementaction import MovementAction
 from move.coordinate import Coordinate
 from move.movevector import MoveVector
+from scene import Scene
 
 
 class Player(GameObject):
@@ -14,7 +15,7 @@ class Player(GameObject):
         super().__init__()
         self.x = 0
         self.y = 0
-        self._speed = 1
+        self._speed = 4
         self._bitmap_x = 0
         self._bitmap_y = 0
         self._lightning_bolt_sent = False
@@ -30,7 +31,7 @@ class Player(GameObject):
 
     def go_down(self) -> MovementAction:
         return MovementAction(self.x, self.y, self.x, self.y+self._speed, -1)
-    
+
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
 
@@ -43,7 +44,7 @@ class Player(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_action(self, game_state: GameState) -> GameAction:
+    def get_action(self, game_state: GameState, scene: Scene) -> GameAction:
         if pyxel.btn(pyxel.KEY_LEFT):
             return self.go_left()
 
@@ -57,7 +58,8 @@ class Player(GameObject):
             return self.go_down()
 
         if pyxel.btn(pyxel.KEY_SPACE):
-            return ProjectileAction(LightningBolt, MoveVector.RIGHT)
+            if not any(obj for obj in game_state.objects_in_scene(scene) if type(obj) == LightningBolt):
+                return ProjectileAction(LightningBolt, MoveVector.RIGHT, self.x + 16, self.y)
 
         return None
 

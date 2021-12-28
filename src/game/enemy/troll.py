@@ -5,6 +5,7 @@ from game.gamestate import GameState
 from move.movementaction import MovementAction
 
 from move.coordinate import Coordinate
+from scene import Scene
 
 class Troll(GameObject):
     def __init__(self, x, y):
@@ -38,7 +39,7 @@ class Troll(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_action(self, game_state: GameState) -> GameAction:
+    def get_action(self, game_state: GameState, scene: Scene) -> GameAction:
         return self.move_random()
 
     def apply_action(self, action: MovementAction):

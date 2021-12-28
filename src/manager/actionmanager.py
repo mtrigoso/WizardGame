@@ -26,12 +26,12 @@ class ActionManager:
         game_object.apply_action(action)
 
     def parse_action(self, game_object: GameObject, action: GameAction, scene: Scene):
-        other_game_objects = [obj for obj in self._game_state.objects_in_scene(scene).copy() if obj != game_object]
-
-
+        other_game_objects = [obj for obj in self._game_state.objects_in_scene(
+            scene).copy() if obj != game_object]
 
         if isinstance(action, MovementAction):
             self.take_action(game_object, action, other_game_objects)
         elif isinstance(action, ProjectileAction):
             # remember that objects are passed by REFERENCE in python
-            self._game_state.add_game_object(scene, action.build_projectile_object())
+            self._game_state.add_game_object(
+                scene, action.build_projectile_object())

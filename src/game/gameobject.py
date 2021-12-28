@@ -3,6 +3,7 @@ from game.action.gameaction import GameAction
 from game.gamestate import GameState
 from move.movementaction import MovementAction
 from move.coordinate import Coordinate
+from scene import Scene
 
 
 class GameObject(object):
@@ -35,7 +36,7 @@ class GameObject(object):
         pass
 
     @overload 
-    def get_action(self, game_state: GameState) -> GameAction:
+    def get_action(self, game_state: GameState, scene: Scene) -> GameAction:
         pass
 
     @overload 

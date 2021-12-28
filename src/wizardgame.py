@@ -1,4 +1,5 @@
 import pyxel
+import game
 from game.enemy.troll import Troll
 from game.gamestate import GameState
 from game.object.rock import Rock
