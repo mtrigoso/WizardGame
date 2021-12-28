@@ -1,29 +1,25 @@
 import random
+from game.action.gameaction import GameAction
 from game.gameobject import GameObject
 from move.coordinate import Coordinate
 from move.movementaction import MovementAction
+from move.movevector import MoveVector
 
 
 class LightningBolt(GameObject):
-    def __init__(self, x, y):
+    def __init__(self, direction: MoveVector):
         super().__init__()
-        self.x = x
-        self.y = y
+        self.x = 20
+        # self.y = y
         self._speed = 1
         self._bitmap_x = 48
         self._bitmap_y = 0
         self._object_height = 8
+        self._move_vector = direction
     
-    def move_random(self) -> MovementAction:
-        x = 0
-        y = 0
-        if self.x > 0:
-            x += random.randint(-self._speed, self._speed)
-
-        if self.y > 0:
-            y += random.randint(-self._speed, self._speed)
-
-        return MovementAction(self.x, self.y, self.x + x, self.y + y)
+    def move_in_direction(self) -> MovementAction:
+        if self._move_vector == MoveVector.RIGHT:
+            return MovementAction(self.x, self.y, self.x + self._speed, self.y)
 
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
@@ -37,8 +33,8 @@ class LightningBolt(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_action(self) -> MovementAction:
-        return self.move_random()
+    def get_action(self) -> GameAction:
+        return self.move_in_direction()
 
     def apply_action(self, action: MovementAction):
         self.x = action.to_x

@@ -1,4 +1,5 @@
 from typing import overload
+from game.action.gameaction import GameAction
 from move.movementaction import MovementAction
 from move.coordinate import Coordinate
 
@@ -33,7 +34,7 @@ class GameObject(object):
         pass
 
     @overload 
-    def get_action(self) -> MovementAction:
+    def get_action(self) -> GameAction:
         pass
 
     @overload 

@@ -1,4 +1,5 @@
 import random
+from game.action.gameaction import GameAction
 from game.gameobject import GameObject
 from move.movementaction import MovementAction
 
@@ -36,7 +37,7 @@ class Troll(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_action(self) -> MovementAction:
+    def get_action(self) -> GameAction:
         return self.move_random()
 
     def apply_action(self, action: MovementAction):
