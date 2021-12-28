@@ -1,3 +1,4 @@
+from math import modf
 import pyxel
 from battle.projectileaction import ProjectileAction
 from game.action.gameaction import GameAction
@@ -18,19 +19,19 @@ class Player(GameObject):
         self._speed = 4
         self._bitmap_x = 0
         self._bitmap_y = 0
-        self._lightning_bolt_sent = False
+        self._move_vector = MoveVector.RIGHT
 
     def go_left(self) -> MovementAction:
-        return MovementAction(self.x, self.y, self.x-self._speed, self.y, 1)
+        return MovementAction(self.x, self.y, self.x-self._speed, self.y, MoveVector.LEFT)
 
     def go_right(self) -> MovementAction:
-        return MovementAction(self.x, self.y, self.x+self._speed, self.y, -1)
+        return MovementAction(self.x, self.y, self.x+self._speed, self.y, MoveVector.RIGHT)
 
     def go_up(self) -> MovementAction:
-        return MovementAction(self.x, self.y, self.x, self.y-self._speed, 1)
+        return MovementAction(self.x, self.y, self.x, self.y-self._speed, MoveVector.UP)
 
     def go_down(self) -> MovementAction:
-        return MovementAction(self.x, self.y, self.x, self.y+self._speed, -1)
+        return MovementAction(self.x, self.y, self.x, self.y+self._speed, MoveVector.DOWN)
 
     def get_left_up_corner(self) -> Coordinate:
         return Coordinate(self.x, self.y)
@@ -59,15 +60,14 @@ class Player(GameObject):
 
         if pyxel.btn(pyxel.KEY_SPACE):
             if not any(obj for obj in game_state.objects_in_scene(scene) if type(obj) == LightningBolt):
-                return ProjectileAction(LightningBolt, MoveVector.RIGHT, self.x + 16, self.y)
+                return ProjectileAction(LightningBolt, MoveVector.LEFT, self.x - 16, self.y)
 
         return None
 
     def apply_action(self, action: MovementAction):
         self.x = action.to_x
         self.y = action.to_y
-        self._horizontal_direction = action.horiz_dir
-        self._vertical_direction = action.vert_dir
+        self._move_vector = action.vector
 
     def bitmap_x(self) -> int:
         return self._bitmap_x
@@ -76,7 +76,11 @@ class Player(GameObject):
         return self._bitmap_y
 
     def get_obj_horiz_tilemap_size(self) -> int:
-        return self._horizontal_direction * self._object_width
+        if self._move_vector == MoveVector.LEFT:    
+            return self._object_width
+        if self._move_vector == MoveVector.RIGHT:    
+            return -self._object_width
+        return self._object_width
 
     def get_obj_vert_tilemap_size(self) -> int:
-        return self._vertical_direction * self._object_height
+        return self._object_height

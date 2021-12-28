@@ -21,16 +21,16 @@ class LightningBolt(GameObject):
     
     def move_in_direction(self) -> MovementAction:
         if self._move_vector == MoveVector.RIGHT:
-            return MovementAction(self.x, self.y, self.x + self._speed, self.y)
+            return MovementAction(self.x, self.y, self.x + self._speed, self.y, self._move_vector)
 
         if self._move_vector == MoveVector.LEFT:
-            return MovementAction(self.x, self.y, self.x - self._speed, self.y)
+            return MovementAction(self.x, self.y, self.x - self._speed, self.y, self._move_vector)
 
         if self._move_vector == MoveVector.UP:
-            return MovementAction(self.x, self.y, self.x, self.y - self._speed)
+            return MovementAction(self.x, self.y, self.x, self.y - self._speed, self._move_vector)
 
         if self._move_vector == MoveVector.DOWN:
-            return MovementAction(self.x, self.y, self.x, self.y + self._speed)
+            return MovementAction(self.x, self.y, self.x, self.y + self._speed, self._move_vector)
 
 
     def get_left_up_corner(self) -> Coordinate:
@@ -51,6 +51,7 @@ class LightningBolt(GameObject):
     def apply_action(self, action: MovementAction):
         self.x = action.to_x
         self.y = action.to_y
+        self._move_vector = action.vector
 
     def bitmap_x(self) -> int:
         return self._bitmap_x
@@ -59,6 +60,10 @@ class LightningBolt(GameObject):
         return self._bitmap_y
 
     def get_obj_horiz_tilemap_size(self) -> int:
+        if self._move_vector == MoveVector.LEFT:    
+            return -self._object_width
+        if self._move_vector == MoveVector.RIGHT:    
+            return self._object_width
         return self._object_width
 
     def get_obj_vert_tilemap_size(self) -> int:
