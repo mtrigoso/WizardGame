@@ -27,7 +27,7 @@ class SecondScene(SceneObject):
     def update(self) -> Scene | None:
         #1: check to see if the player request to move to another scene
         if self.player.y > 120:
-            return Scene.FIRST_LEVEL
+            return Scene.FIRST_SCENE
 
         for game_obj in self.game_objects:
             #2: handle input and construct an action from there

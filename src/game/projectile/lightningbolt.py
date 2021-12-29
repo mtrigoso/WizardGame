@@ -14,9 +14,8 @@ class LightningBolt(GameObject):
         self.x = x
         self.y = y
         self._speed = 2
-        self._bitmap_x = 48
         self._bitmap_y = 0
-        self._object_height = 8
+        self._object_width = 8
         self._move_vector = direction
     
     def move_in_direction(self) -> MovementAction:
@@ -53,6 +52,15 @@ class LightningBolt(GameObject):
         self.y = action.to_y
         self._move_vector = action.vector
 
+        if self._move_vector in [MoveVector.DOWN, MoveVector.UP]:
+            self._object_height = 16
+            self._object_width = 8
+            self._bitmap_x = 64
+        elif self._move_vector in [MoveVector.LEFT, MoveVector.RIGHT]:
+            self._object_height = 8
+            self._object_width = 16
+            self._bitmap_x = 48
+
     def bitmap_x(self) -> int:
         return self._bitmap_x
 
@@ -67,4 +75,8 @@ class LightningBolt(GameObject):
         return self._object_width
 
     def get_obj_vert_tilemap_size(self) -> int:
+        if self._move_vector == MoveVector.UP:
+            return self._object_height
+        if self._move_vector == MoveVector.DOWN:
+            return -self._object_height
         return self._object_height

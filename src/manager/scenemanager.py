@@ -18,9 +18,9 @@ class SceneManager():
 
     def update(self):
         scene_transition = self.scene.update()
-        if scene_transition == Scene.SECOND_LEVEL: 
+        if scene_transition == Scene.SECOND_SCENE: 
             self.scene = SecondScene(self.player)
-        elif scene_transition == Scene.FIRST_LEVEL:
+        elif scene_transition == Scene.FIRST_SCENE:
             self.scene = FirstScene(self.player, self.enemies, self._game_state)
         elif scene_transition == Scene.NO_SCENE_CHANGE:
             pass

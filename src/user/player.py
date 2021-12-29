@@ -1,4 +1,5 @@
 from math import modf
+from typing import Tuple
 import pyxel
 from battle.projectileaction import ProjectileAction
 from game.action.gameaction import GameAction
@@ -45,6 +46,22 @@ class Player(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
+    def get_projectile_action(self, game_state: GameState, scene: Scene) -> GameAction:
+        if any(obj for obj in game_state.objects_in_scene(scene) if type(obj) == LightningBolt):
+            return
+
+        if pyxel.btn(pyxel.KEY_H):
+            return ProjectileAction(LightningBolt, MoveVector.LEFT, self.x - 16, self.y)
+
+        if pyxel.btn(pyxel.KEY_J):
+            return ProjectileAction(LightningBolt, MoveVector.DOWN, self.x, self.y + 16)
+
+        if pyxel.btn(pyxel.KEY_K):
+            return ProjectileAction(LightningBolt, MoveVector.UP, self.x, self.y - 16)
+
+        if pyxel.btn(pyxel.KEY_L):
+            return ProjectileAction(LightningBolt, MoveVector.RIGHT, self.x + 16, self.y)
+
     def get_action(self, game_state: GameState, scene: Scene) -> GameAction:
         if pyxel.btn(pyxel.KEY_LEFT):
             return self.go_left()
@@ -57,12 +74,8 @@ class Player(GameObject):
 
         if pyxel.btn(pyxel.KEY_DOWN):
             return self.go_down()
-
-        if pyxel.btn(pyxel.KEY_SPACE):
-            if not any(obj for obj in game_state.objects_in_scene(scene) if type(obj) == LightningBolt):
-                return ProjectileAction(LightningBolt, MoveVector.RIGHT, self.x + 16, self.y)
-
-        return None
+        
+        return self.get_projectile_action(game_state, scene)
 
     def apply_action(self, action: MovementAction):
         self.x = action.to_x
@@ -83,4 +96,8 @@ class Player(GameObject):
         return self._object_width
 
     def get_obj_vert_tilemap_size(self) -> int:
+        if self._move_vector == MoveVector.UP:
+            return self._object_height
+        if self._move_vector == MoveVector.DOWN:
+            return self._object_height
         return self._object_height

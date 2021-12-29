@@ -15,7 +15,7 @@ from scene.sceneobject import SceneObject
 
 
 class FirstScene(SceneObject):
-    SCENE_TYPE = Scene.FIRST_LEVEL
+    SCENE_TYPE = Scene.FIRST_SCENE
 
     def __init__(self, player: Player, enemies: List[GameObject], game_state: GameState):
         super().__init__()
@@ -28,7 +28,7 @@ class FirstScene(SceneObject):
     def update(self) -> Scene | None:
         # 1: check to see if the player request to move to another scene
         if self.player.y < 0:
-            return Scene.SECOND_LEVEL
+            return Scene.SECOND_SCENE
 
         for game_object in self._game_state.objects_in_scene(self.SCENE_TYPE):
             # 2: handle input and construct an action from there
@@ -37,7 +37,7 @@ class FirstScene(SceneObject):
             if action:
                 # 3: check if the action is valid - if it is, apply that action
                 self._action_manager.parse_action(
-                    game_object, action, Scene.FIRST_LEVEL)
+                    game_object, action, Scene.FIRST_SCENE)
 
     def draw(self):
         pyxel.cls(0)
