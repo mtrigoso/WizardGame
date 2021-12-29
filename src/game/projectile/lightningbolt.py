@@ -17,6 +17,7 @@ class LightningBolt(GameObject):
         self._bitmap_y = 0
         self._object_width = 8
         self._move_vector = direction
+        self._can_kill = True
     
     def move_in_direction(self) -> MovementAction:
         if self._move_vector == MoveVector.RIGHT:

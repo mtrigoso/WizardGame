@@ -22,7 +22,7 @@ class ActionManager:
         for other_obj in other_game_objects:
             if self._collision_manager.are_colliding(anon_game_object, other_obj):
                 # check if the object is killable
-                if other_obj.removable():
+                if other_obj.removable() and game_object.can_kill():
                     other_obj.set_to_be_removed()
                 return
 

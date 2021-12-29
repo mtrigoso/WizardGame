@@ -16,6 +16,9 @@ class WizardGame:
         self.scene_manager = SceneManager(self.player, 
             [
                 Rock(50, 50), 
+                Troll(25, 25), 
+                Troll(120, 75), 
+                Troll(90, 50), 
                 Troll(75, 75), 
                 Troll(100, 100),
             ],

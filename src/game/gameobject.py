@@ -18,6 +18,7 @@ class GameObject(object):
         self._bitmap_y = 0
         self._killable = False
         self._to_be_killed = False
+        self._can_kill = False
 
     @overload
     def get_left_up_corner(self) -> Coordinate:
@@ -67,3 +68,6 @@ class GameObject(object):
 
     def set_to_be_removed(self) -> bool:
         self._to_be_killed = True
+    
+    def can_kill(self) -> bool:
+        return self._can_kill

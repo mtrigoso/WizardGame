@@ -48,7 +48,6 @@ class Player(GameObject):
 
     def get_projectile_action(self, game_state: GameState, scene: Scene) -> GameAction:
         curr_time = time.time()
-
         if curr_time - self._time_since_last_bolt < 0.15:
             return
         self._time_since_last_bolt = curr_time
