@@ -16,6 +16,7 @@ class GameObject(object):
         self._speed = 1
         self._bitmap_x = 64
         self._bitmap_y = 0
+        self._killable = False
 
     @overload
     def get_left_up_corner(self) -> Coordinate:
@@ -56,3 +57,6 @@ class GameObject(object):
     @overload 
     def get_obj_vert_tilemap_size(self) -> int:
         pass
+
+    def killable(self) -> int:
+        return self._killable

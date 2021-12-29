@@ -15,6 +15,7 @@ class GameState(object):
         from game.gameobject import GameObject
         self.current_scene: Scene = None
         self._object_map: Dict[Scene, List[GameObject]] = {}
+        self._to_be_killed: List[GameObject] = []
 
     # def objects_in_scene_temp(self, scene: Scene) -> List[game.gameobject.GameObject]:
     #     return self._object_map[scene]
@@ -33,3 +34,13 @@ class GameState(object):
 
     def add_game_object(self, scene: Scene, object):
         self._object_map[scene].append(object)
+    
+    def set_to_be_killed(self, object):
+        self._to_be_killed.append(object)
+
+    def remove_game_object(self, scene: Scene, object):
+        self._object_map[scene].remove(object)
+        self._to_be_killed.remove(object)
+
+    def objects_for_removal(self):
+        return self._to_be_killed # in theory we could + another list here (say of objects like walls that were broken)

@@ -37,7 +37,11 @@ class FirstScene(SceneObject):
             if action:
                 # 3: check if the action is valid - if it is, apply that action
                 self._action_manager.parse_action(
-                    game_object, action, Scene.FIRST_SCENE)
+                    game_object, action, self.SCENE_TYPE)
+        
+        for obj in self._game_state.objects_for_removal():
+            self._game_state.remove_game_object(self.SCENE_TYPE, obj)
+            
 
     def draw(self):
         pyxel.cls(0)

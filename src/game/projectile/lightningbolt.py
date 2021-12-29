@@ -52,6 +52,7 @@ class LightningBolt(GameObject):
         self.y = action.to_y
         self._move_vector = action.vector
 
+        #depending on the direction the object is moving, we may need to get a different square from the bitmap
         if self._move_vector in [MoveVector.DOWN, MoveVector.UP]:
             self._object_height = 16
             self._object_width = 8

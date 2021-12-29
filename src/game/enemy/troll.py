@@ -18,6 +18,7 @@ class Troll(GameObject):
         self._bitmap_x = 32
         self._bitmap_y = 0
         self._move_vector: MoveVector = MoveVector.LEFT
+        self._killable = True
 
     def move_random(self) -> MovementAction:
         x = 0
