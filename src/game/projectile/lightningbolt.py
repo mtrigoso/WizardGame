@@ -50,6 +50,10 @@ class LightningBolt(GameObject):
     def apply_action(self, action: MovementAction):
         self.x = action.to_x
         self.y = action.to_y
+
+        if self.x < 0 or self.x > 160 or self.y < 0 or self.y > 120: 
+            self._to_be_killed = True
+
         self._move_vector = action.vector
 
         #depending on the direction the object is moving, we may need to get a different square from the bitmap

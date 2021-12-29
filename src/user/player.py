@@ -1,5 +1,4 @@
-from math import modf
-from typing import Tuple
+import time
 import pyxel
 from battle.projectileaction import ProjectileAction
 from game.action.gameaction import GameAction
@@ -21,6 +20,7 @@ class Player(GameObject):
         self._bitmap_x = 0
         self._bitmap_y = 0
         self._move_vector = MoveVector.RIGHT
+        self._time_since_last_bolt = time.time()
 
     def go_left(self) -> MovementAction:
         return MovementAction(self.x, self.y, self.x-self._speed, self.y, MoveVector.LEFT)
@@ -47,8 +47,11 @@ class Player(GameObject):
         return Coordinate(self.x + self._object_width, self.y)
 
     def get_projectile_action(self, game_state: GameState, scene: Scene) -> GameAction:
-        if any(obj for obj in game_state.objects_in_scene(scene) if type(obj) == LightningBolt):
+        curr_time = time.time()
+
+        if curr_time - self._time_since_last_bolt < 0.15:
             return
+        self._time_since_last_bolt = curr_time
 
         if pyxel.btn(pyxel.KEY_H):
             return ProjectileAction(LightningBolt, MoveVector.LEFT, self.x - 16, self.y)
