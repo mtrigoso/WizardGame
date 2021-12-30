@@ -39,7 +39,6 @@ class FirstScene(SceneObject):
                 self._action_manager.parse_action(
                     game_object, action, self.SCENE_TYPE)
         self._game_state.remove_all_removed_objects(self.SCENE_TYPE)
-        print(len(self._game_state.objects_in_scene(self.SCENE_TYPE)))
 
     def draw(self):
         pyxel.cls(0)

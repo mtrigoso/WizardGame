@@ -19,6 +19,7 @@ class GameObject(object):
         self._killable = False
         self._to_be_killed = False
         self._can_kill = False
+        self._die_on_stalled = False
 
     @overload
     def get_left_up_corner(self) -> Coordinate:
@@ -71,3 +72,6 @@ class GameObject(object):
     
     def can_kill(self) -> bool:
         return self._can_kill
+
+    def die_on_stalled(self) -> bool:
+        return self._die_on_stalled

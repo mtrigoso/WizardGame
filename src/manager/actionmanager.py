@@ -21,9 +21,14 @@ class ActionManager:
         # for each other game object, if the object in question is coliding with ONE of them, the action may not proceed
         for other_obj in other_game_objects:
             if self._collision_manager.are_colliding(anon_game_object, other_obj):
-                # check if the object is killable
+                # check if the object being ran INTO is killable
                 if other_obj.removable() and game_object.can_kill():
                     other_obj.set_to_be_removed()
+
+                # check if the object that is taking the action should be destroyed
+                if game_object.die_on_stalled():
+                    game_object.set_to_be_removed()
+
                 return
 
         game_object.apply_action(action)

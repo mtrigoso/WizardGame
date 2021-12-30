@@ -18,6 +18,7 @@ class LightningBolt(GameObject):
         self._object_width = 8
         self._move_vector = direction
         self._can_kill = True
+        self._die_on_stalled = True
     
     def move_in_direction(self) -> MovementAction:
         if self._move_vector == MoveVector.RIGHT:
