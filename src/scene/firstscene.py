@@ -1,14 +1,9 @@
-from typing import List
+from typing import List, Tuple
 import pyxel
 from game.gameobject import GameObject
 from game.gamestate import GameState
-from game.projectile.lightningbolt import LightningBolt
-from game.tempgameobject import TempGameObject
-from manager.actionmanager import ActionManager
-from manager.collisionmanager import CollisionManager
-from move.movementaction import MovementAction
 from game.object.rock import Rock
-
+from manager.actionmanager import ActionManager
 from user.player import Player
 from scene import Scene
 from scene.sceneobject import SceneObject
@@ -17,18 +12,21 @@ from scene.sceneobject import SceneObject
 class FirstScene(SceneObject):
     SCENE_TYPE = Scene.FIRST_SCENE
 
-    def __init__(self, player: Player, enemies: List[GameObject], game_state: GameState):
+    def __init__(self, player: Player, game_state: GameState):
         super().__init__()
-        self.player = player
+        self._player = player
         self._game_state: GameState = game_state
-        self._game_state.set_objects_in_scene(
-            self.SCENE_TYPE, [self.player] + enemies)
         self._action_manager = ActionManager(self._game_state)
 
     def update(self) -> Scene | None:
         # 1: check to see if the player request to move to another scene
-        if self.player.y < 0:
-            return Scene.SECOND_SCENE
+        if self._player.y < 0:
+            # move over any objects between scenes
+            going_to = Scene.SECOND_SCENE
+            rock = self._game_state.get_obj(self.SCENE_TYPE, Rock)[0]
+            self._game_state.move_objs_between_scenes(
+                [self._player, rock], self.SCENE_TYPE, going_to)
+            return going_to
 
         for game_object in self._game_state.objects_in_scene(self.SCENE_TYPE):
             # 2: handle input and construct an action from there

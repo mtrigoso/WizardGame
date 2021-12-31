@@ -28,6 +28,9 @@ class GameState(object):
     # def add_game_object(self, scene: Scene, object: game.gameobject.GameObject):
     #     self._object_map[scene].append(object)
 
+    def get_obj(self, scene: Scene, obj_type: type):
+        return [obj for obj in self._object_map[scene] if type(obj) == obj_type]
+
     def objects_in_scene(self, scene: Scene):
         return self._object_map[scene]
 
@@ -47,8 +50,12 @@ class GameState(object):
     def objects_for_removal(self, scene: Scene):
         # in theory we could + another list here (say of objects like walls that were broken)
         return [obj for obj in self.objects_in_scene(scene) if obj.to_be_removed()]
-    
+
     def remove_all_removed_objects(self, scene: Scene):
         for obj in self.objects_for_removal(scene):
             self.remove_game_object(scene, obj)
 
+    def move_objs_between_scenes(self, objs_in_scene1, scene1: Scene, scene2: Scene):
+        for obj in objs_in_scene1:
+            self.remove_game_object(scene1, obj)
+            self.add_game_object(scene2, obj)

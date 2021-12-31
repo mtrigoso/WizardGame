@@ -9,25 +9,31 @@ from scene import Scene
 from scene.sceneobject import SceneObject
 from scene.secondscene import SecondScene
 
+
 class SceneManager():
-    def __init__(self, player: Player, enemies: List[GameObject], game_state: GameState):
-        self.player = player
-        self.enemies = enemies
+    def __init__(self, player: Player, game_state: GameState, starting_scene: Scene):
+        self._player = player
         self._game_state = game_state
-        self.scene: SceneObject = FirstScene(player, enemies, self._game_state)
+        self._scene = self.init_scene(starting_scene)
 
     def update(self):
-        scene_transition = self.scene.update()
-        if scene_transition == Scene.SECOND_SCENE: 
-            self.scene = SecondScene(self.player)
+        scene_transition = self._scene.update()
+
+        if scene_transition == Scene.SECOND_SCENE:
+            self._scene = SecondScene(self._player, self._game_state)
         elif scene_transition == Scene.FIRST_SCENE:
-            self.scene = FirstScene(self.player, self.enemies, self._game_state)
+            self._scene = FirstScene(self._player, self._game_state)
         elif scene_transition == Scene.NO_SCENE_CHANGE:
             pass
-        elif scene_transition == None: 
+        elif scene_transition == None:
             pass
         else:
             raise Exception("I have no clue what went wrong")
 
     def draw(self):
-        self.scene.draw()
+        self._scene.draw()
+
+    def init_scene(self, scene: Scene) -> SceneObject:
+        scene_obj = [scn for scn in [FirstScene, SecondScene]
+                     if scn.SCENE_TYPE == scene].pop()
+        return scene_obj(self._player, self._game_state)
