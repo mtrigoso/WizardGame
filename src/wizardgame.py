@@ -9,8 +9,10 @@ from manager.scenemanager import SceneManager
 
 
 class WizardGame:
+    SCREEN_WIDTH = 160
+    SCREEN_HEIGHT = 120
     def __init__(self):
-        pyxel.init(160, 120)
+        pyxel.init(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
         self._player = Player()
         self._game_state = GameState.instance()
         enemies = [

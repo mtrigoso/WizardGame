@@ -59,3 +59,4 @@ class GameState(object):
         for obj in objs_in_scene1:
             self.remove_game_object(scene1, obj)
             self.add_game_object(scene2, obj)
+    
