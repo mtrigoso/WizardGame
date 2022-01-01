@@ -17,11 +17,14 @@ class WizardGame:
         self._game_state = GameState.instance()
         enemies = [
             Rock(50, 50),
+            Rock(100, 100),
+            Rock(0, 90),
+            Rock(140, 50),
             Troll(25, 25),
             Troll(120, 75),
             Troll(90, 50),
             Troll(75, 75),
-            Troll(100, 100),
+            Troll(120, 0),
         ]
 
         # load the scenes with their appropiate objects

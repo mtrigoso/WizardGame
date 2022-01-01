@@ -1,5 +1,6 @@
 from typing import List, Tuple
 import pyxel
+from game.projectile.lightningbolt import LightningBolt
 from game.gameobject import GameObject
 from game.gamestate import GameState
 from game.object.rock import Rock
@@ -51,13 +52,15 @@ class FirstScene(SceneObject):
             self._background._object_width,
             self._background._object_height
         )
+
         for obj in self._game_state.objects_in_scene(self.SCENE_TYPE):
             pyxel.blt(
                 obj.get_left_up_corner().x,
                 obj.get_left_up_corner().y,
-                0,
+                obj.image_num,
                 obj.bitmap_x(),
                 obj.bitmap_y(),
                 obj.get_obj_horiz_tilemap_size(),
                 obj.get_obj_vert_tilemap_size(),
+                colkey=obj.get_transparent_color()
             )

@@ -20,6 +20,8 @@ class GameObject(object):
         self._to_be_killed = False
         self._can_kill = False
         self._die_on_stalled = False
+        self.image_num = 0
+        self._transparent_color = 0
 
     @overload
     def get_left_up_corner(self) -> Coordinate:
@@ -75,3 +77,6 @@ class GameObject(object):
 
     def die_on_stalled(self) -> bool:
         return self._die_on_stalled
+    
+    def get_transparent_color(self) -> int:
+        return self._transparent_color
