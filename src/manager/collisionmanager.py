@@ -1,43 +1,62 @@
 from game.gameobject import GameObject
+from game.projectile.lightningbolt import LightningBolt
 from move.coordinate import Coordinate
+from user.player import Player
 
 
 class CollisionManager:
     def __init__(self) -> None:
         pass
 
-    # def would_collide(self, coord1: Coordinate, ): 
-    #     pass
-
-    def are_colliding(self, object1: GameObject, object2: GameObject) -> bool:
-        """OK listen up boils an ghouls, here's how we're doing collision. It's currently two days before Christmas and I'm hyped up on python so lets go
-
-           Since all objects are squares, simple check each corner of square 1 and see if it's coordinate is bounded by the square of object 2
-           If it's ever bounded, you know you have a collision
-
-           Repeate this process for all 4 corners. Viola. This should handle every case *EXCEPT* when the squares are *EXACTLY* one on top of each other.
-           In that case, according to this algorithm, no collision will be detected. But what are the chances of that happening right?.....?
+    def are_colliding(self, object1: GameObject, object2: GameObject, debug=True):
+        """check if object1 has a corner in object2 or object2 has a corner in object1
         """
+        if debug:
+            self.debug(object1, object2)
+        return self.is_overlap(object1.get_left_up_corner(), object1.get_right_down_corner(), object2.get_left_up_corner(), object2.get_right_down_corner())
 
-        # check if bottom right corner of object 1 is in the square of object 2
-        if  object2.get_left_up_corner().x <= object1.get_right_down_corner().x <= object2.get_right_up_corner().x and \
-            object2.get_left_up_corner().y <= object1.get_right_down_corner().y <= object2.get_left_down_corner().y:
-            return True
+    # lovingly stolen from: https://www.geeksforgeeks.org/find-two-rectangles-overlap/
+    def is_overlap(self, rect1_top_left_corner: Coordinate, rect1_bottom_right_corner: Coordinate, rect2_top_left_corner: Coordinate, rect2_bottom_right_corner: Coordinate):
+        if (rect1_top_left_corner.x == rect1_bottom_right_corner.x or rect1_top_left_corner.y == rect1_bottom_right_corner.y or rect2_top_left_corner.x == rect2_bottom_right_corner.x or rect2_top_left_corner.y == rect2_bottom_right_corner.y):
+            # the line cannot have positive overlap
+            return False
 
-        # check if bottom left corner of object 1 is in the square of object 2
-        if  object2.get_left_up_corner().x <= object1.get_left_down_corner().x <= object2.get_right_up_corner().x and \
-            object2.get_left_up_corner().y <= object1.get_left_down_corner().y <= object2.get_right_down_corner().y:
-            return True
+        # If one rectangle is on left side of other
+        if(rect1_top_left_corner.x >= rect2_bottom_right_corner.x or rect2_top_left_corner.x >= rect1_bottom_right_corner.x):
+            return False
 
+        # If one rectangle is above other
+        if(rect1_bottom_right_corner.y <= rect2_top_left_corner.y or rect2_bottom_right_corner.y <= rect1_top_left_corner.y):
+            return False
 
-        # check if top right corner of object 1 is in the square of object 2
-        if  object2.get_left_down_corner().x <= object1.get_right_up_corner().x <= object2.get_right_down_corner().x and \
-            object2.get_left_up_corner().y <= object1.get_right_up_corner().y <= object2.get_left_down_corner().y:
-            return True
+        return True
 
-        # check if top left corner of object 1 is in the square of object 2
-        if  object2.get_left_down_corner().x <= object1.get_left_up_corner().x <= object2.get_right_down_corner().x and \
-            object2.get_right_up_corner().y <= object1.get_left_up_corner().y <= object2.get_right_down_corner().y:
-            return True
+    def debug(self, object1: GameObject, object2: GameObject):
+        object1_type = type(object1)
+        object2_type = type(object2)
 
-        return False
+        obj1_top_left_x = object1.get_left_up_corner().x
+        obj1_top_left_y = object1.get_left_up_corner().y
+
+        obj1_top_right_x = object1.get_right_up_corner().x
+        obj1_top_right_y = object1.get_right_up_corner().y
+
+        obj1_bottom_left_x = object1.get_left_down_corner().x
+        obj1_bottom_left_y = object1.get_left_down_corner().y
+
+        obj1_bottom_right_x = object1.get_right_down_corner().x
+        obj1_bottom_right_y = object1.get_right_down_corner().y
+
+        obj2_top_left_x = object2.get_left_up_corner().x
+        obj2_top_left_y = object2.get_left_up_corner().y
+
+        obj2_top_right_x = object2.get_right_up_corner().x
+        obj2_top_right_y = object2.get_right_up_corner().y
+
+        obj2_bottom_left_x = object2.get_left_down_corner().x
+        obj2_bottom_left_y = object2.get_left_down_corner().y
+
+        obj2_bottom_right_x = object2.get_right_down_corner().x
+        obj2_bottom_right_y = object2.get_right_down_corner().y
+
+        foo = 10

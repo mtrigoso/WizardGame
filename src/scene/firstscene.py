@@ -1,54 +1,66 @@
-from typing import List
+from typing import List, Tuple
 import pyxel
+from game.projectile.lightningbolt import LightningBolt
 from game.gameobject import GameObject
-from game.tempgameobject import TempGameObject
-from manager.collisionmanager import CollisionManager
-from move.action import Action
+from game.gamestate import GameState
 from game.object.rock import Rock
-
-from player import Player
+from manager.actionmanager import ActionManager
+from scene import background
+from scene.background import Background
+from user.player import Player
 from scene import Scene
 from scene.sceneobject import SceneObject
 
+
 class FirstScene(SceneObject):
-    def __init__(self, player: Player, enemies: List[GameObject]):
+    SCENE_TYPE = Scene.FIRST_SCENE
+
+    def __init__(self, player: Player, game_state: GameState):
         super().__init__()
-        self.player = player
-        self.game_objects: List[GameObject] = [self.player] + enemies
-        self.collisionManager = CollisionManager()
-
-    def take_action(self, game_object: GameObject, action: Action, other_game_objects: List[GameObject]): 
-        anon_game_object = TempGameObject(action.to_x, action.to_y)
-        # for each other game object, if the object in question is coliding with ONE of them, the action may not proceed
-        for other_obj in other_game_objects:
-            if self.collisionManager.are_colliding(anon_game_object, other_obj):
-                return
-
-        game_object.apply_action(action)
+        self._player = player
+        self._game_state: GameState = game_state
+        self._action_manager = ActionManager(self._game_state)
+        self._background = Background()
 
     def update(self) -> Scene | None:
-        #1: check to see if the player request to move to another scene
-        if self.player.y < 0:
-            return Scene.SECOND_LEVEL
+        # 1: check to see if the player request to move to another scene
+        if self._player.y < 0:
+            # move over any objects between scenes
+            going_to = Scene.SECOND_SCENE
+            rock = self._game_state.get_obj(self.SCENE_TYPE, Rock)[0]
+            self._game_state.move_objs_between_scenes(
+                [self._player, rock], self.SCENE_TYPE, going_to)
+            return going_to
 
-        for game_object in self.game_objects:
-            #2: handle input and construct an action from there
-            action = game_object.get_action()
+        for game_object in self._game_state.objects_in_scene(self.SCENE_TYPE):
+            # 2: handle input and construct an action from there
+            action = game_object.get_action(self._game_state, self.SCENE_TYPE)
+
             if action:
-                # get all the other game objects to test for collisions against
-                other_game_objects = [obj for obj in self.game_objects.copy() if obj != game_object]
-                #3: check if the action is valid - if it is, apply that action
-                self.take_action(game_object, action, other_game_objects)
+                # 3: check if the action is valid - if it is, apply that action
+                self._action_manager.parse_action(
+                    game_object, action, self.SCENE_TYPE)
+        self._game_state.remove_all_removed_objects(self.SCENE_TYPE)
 
     def draw(self):
-        pyxel.cls(0)
-        for obj in self.game_objects:
+        pyxel.blt(
+            0,
+            0,
+            self._background._image_num,
+            self._background._bitmap_x,
+            self._background._bitmap_y,
+            self._background._object_width,
+            self._background._object_height
+        )
+
+        for obj in self._game_state.objects_in_scene(self.SCENE_TYPE):
             pyxel.blt(
                 obj.get_left_up_corner().x,
                 obj.get_left_up_corner().y,
-                0,
+                obj.image_num,
                 obj.bitmap_x(),
                 obj.bitmap_y(),
-                obj.OBJECT_WIDTH,
-                obj.OBJECT_WIDTH,
+                obj.get_obj_horiz_tilemap_size(),
+                obj.get_obj_vert_tilemap_size(),
+                colkey=obj.get_transparent_color()
             )

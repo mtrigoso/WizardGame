@@ -1,4 +1,5 @@
-from typing import overload
+from typing import List, Tuple, overload
+from game.gameobject import GameObject
 
 from scene import Scene
 
