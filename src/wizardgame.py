@@ -15,6 +15,8 @@ class WizardGame:
         pyxel.init(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
         self._player = Player()
         self._game_state = GameState.instance()
+        self._game_state = GameState.instance()
+        # self._game_state = GameState()
         enemies = [
             Rock(50, 50),
             Rock(100, 100),

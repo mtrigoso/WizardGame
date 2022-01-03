@@ -18,7 +18,7 @@ class FirstScene(SceneObject):
     def __init__(self, player: Player, game_state: GameState):
         super().__init__()
         self._player = player
-        self._game_state: GameState = game_state
+        self._game_state = game_state
         self._action_manager = ActionManager(self._game_state)
         self._background = TileMap()
 
@@ -27,7 +27,7 @@ class FirstScene(SceneObject):
         if self._player.y < 0:
             # move over any objects between scenes
             going_to = Scene.SECOND_SCENE
-            rock = self._game_state.get_obj(self.SCENE_TYPE, Rock)[0]
+            rock = self._game_state.get_obj(self.SCENE_TYPE, Rock)
             self._game_state.move_objs_between_scenes(
                 [self._player, rock], self.SCENE_TYPE, going_to)
             return going_to
@@ -53,6 +53,7 @@ class FirstScene(SceneObject):
             self._background._object_width,
             self._background._object_height,
         )
+
 
         # draw each object
         for obj in self._game_state.objects_in_scene(self.SCENE_TYPE):
