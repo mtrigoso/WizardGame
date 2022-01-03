@@ -2,6 +2,7 @@ from typing import Dict, List
 from etc.singleton import Singleton
 from scene import Scene
 import scene
+import game
 
 """
 you'll notice that there isn't any strong typing in this class, that's because in order to use the types, 

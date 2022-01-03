@@ -5,8 +5,8 @@ from game.gameobject import GameObject
 from game.gamestate import GameState
 from game.object.rock import Rock
 from manager.actionmanager import ActionManager
-from scene import background
-from scene.background import Background
+from scene import tilemap
+from scene.tilemap import TileMap
 from user.player import Player
 from scene import Scene
 from scene.sceneobject import SceneObject
@@ -20,7 +20,7 @@ class FirstScene(SceneObject):
         self._player = player
         self._game_state: GameState = game_state
         self._action_manager = ActionManager(self._game_state)
-        self._background = Background()
+        self._background = TileMap()
 
     def update(self) -> Scene | None:
         # 1: check to see if the player request to move to another scene
@@ -43,16 +43,18 @@ class FirstScene(SceneObject):
         self._game_state.remove_all_removed_objects(self.SCENE_TYPE)
 
     def draw(self):
-        pyxel.blt(
+        # draw the tile map for background
+        pyxel.bltm(
             0,
             0,
-            self._background._image_num,
+            self._background._tile_num,
             self._background._bitmap_x,
             self._background._bitmap_y,
             self._background._object_width,
-            self._background._object_height
+            self._background._object_height,
         )
 
+        # draw each object
         for obj in self._game_state.objects_in_scene(self.SCENE_TYPE):
             pyxel.blt(
                 obj.get_left_up_corner().x,

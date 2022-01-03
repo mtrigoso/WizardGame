@@ -9,8 +9,8 @@ from manager.scenemanager import SceneManager
 
 
 class WizardGame:
-    SCREEN_WIDTH = 160
-    SCREEN_HEIGHT = 120
+    SCREEN_WIDTH = 128
+    SCREEN_HEIGHT = 128
     def __init__(self):
         pyxel.init(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
         self._player = Player()
