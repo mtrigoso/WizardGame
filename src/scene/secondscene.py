@@ -23,10 +23,11 @@ class SecondScene(SceneObject):
 
     def update(self) -> Scene | None:
         # 1: check to see if the player request to move to another scene
-        if self._player.y > 120:
+        foo = int(self._game_state.scene_settings[self.SCENE_TYPE]["max_y"])
+        if self._player.y > int(self._game_state.scene_settings[self.SCENE_TYPE]["max_y"]):
             # move over any objects between scenes
             going_to = Scene.FIRST_SCENE
-            rock = self._game_state.get_obj(self.SCENE_TYPE, Rock)[0]
+            rock = self._game_state.get_first_obj(self.SCENE_TYPE, Rock)
             self._game_state.move_objs_between_scenes(
                 [self._player, rock], self.SCENE_TYPE, going_to)
             return going_to

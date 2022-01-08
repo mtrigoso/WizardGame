@@ -5,8 +5,8 @@ from game.gameobject import GameObject
 from game.gamestate import GameState
 from game.object.rock import Rock
 from manager.actionmanager import ActionManager
-from scene import background
-from scene.background import Background
+from scene import tilemap
+from scene.tilemap import TileMap
 from user.player import Player
 from scene import Scene
 from scene.sceneobject import SceneObject
@@ -18,16 +18,16 @@ class FirstScene(SceneObject):
     def __init__(self, player: Player, game_state: GameState):
         super().__init__()
         self._player = player
-        self._game_state: GameState = game_state
+        self._game_state = game_state
         self._action_manager = ActionManager(self._game_state)
-        self._background = Background()
+        self._background = TileMap()
 
     def update(self) -> Scene | None:
         # 1: check to see if the player request to move to another scene
-        if self._player.y < 0:
+        if self._player.y < int(self._game_state.scene_settings[self.SCENE_TYPE]["min_y"]):
             # move over any objects between scenes
             going_to = Scene.SECOND_SCENE
-            rock = self._game_state.get_obj(self.SCENE_TYPE, Rock)[0]
+            rock = self._game_state.get_first_obj(self.SCENE_TYPE, Rock)
             self._game_state.move_objs_between_scenes(
                 [self._player, rock], self.SCENE_TYPE, going_to)
             return going_to
@@ -43,16 +43,19 @@ class FirstScene(SceneObject):
         self._game_state.remove_all_removed_objects(self.SCENE_TYPE)
 
     def draw(self):
-        pyxel.blt(
+        # draw the tile map for background
+        pyxel.bltm(
             0,
             0,
-            self._background._image_num,
+            self._background._tile_num,
             self._background._bitmap_x,
             self._background._bitmap_y,
             self._background._object_width,
-            self._background._object_height
+            self._background._object_height,
         )
 
+
+        # draw each object
         for obj in self._game_state.objects_in_scene(self.SCENE_TYPE):
             pyxel.blt(
                 obj.get_left_up_corner().x,

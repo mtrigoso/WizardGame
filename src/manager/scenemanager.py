@@ -20,8 +20,10 @@ class SceneManager():
         scene_transition = self._scene.update()
 
         if scene_transition == Scene.SECOND_SCENE:
+            self._game_state.saved_state["player_y"].append(0)
             self._scene = SecondScene(self._player, self._game_state)
         elif scene_transition == Scene.FIRST_SCENE:
+            self._player.y = self._game_state.saved_state["player_y"].pop()
             self._scene = FirstScene(self._player, self._game_state)
         elif scene_transition == Scene.NO_SCENE_CHANGE:
             pass

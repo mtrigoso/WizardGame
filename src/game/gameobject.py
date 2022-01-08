@@ -1,6 +1,5 @@
 from typing import overload
 from game.action.gameaction import GameAction
-from game.gamestate import GameState
 from move.movementaction import MovementAction
 from move.coordinate import Coordinate
 from scene import Scene
@@ -40,7 +39,14 @@ class GameObject(object):
         pass
 
     @overload 
-    def get_action(self, game_state: GameState, scene: Scene) -> GameAction:
+    def get_action(self, game_state, scene: Scene) -> GameAction:
+        """
+        Get the resulting game action from the given object
+
+        :param game_state: GameState singleton
+        :param scene: Scene corresponding to the current scene
+        :return: GameAction represeing the chosen action that the object would like to do
+        """
         pass
 
     @overload 
