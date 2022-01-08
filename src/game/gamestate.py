@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from game import gameobject
 from game.gameobject import GameObject
 from scene import Scene
@@ -18,9 +18,12 @@ class GameState(object):
         self.current_scene: Scene = None
         self._object_map: Dict[Scene, List[GameObject]] = {}
         self._to_be_killed: List[GameObject] = []
+        self.scene_settings: Dict[Scene, Dict[str, str]] = {} 
 
-    def get_first_obj(self, scene: Scene, obj_type: type) -> List[GameObject]:
-        return [obj for obj in self._object_map[scene] if type(obj) == obj_type]
+        self.saved_state = {"player_y": []};
+
+    def get_first_obj(self, scene: Scene, obj_type: type) -> GameObject:
+        return [obj for obj in self._object_map[scene] if type(obj) == obj_type].pop()
 
     def objects_in_scene(self, scene: Scene) -> List[GameObject]:
         return self._object_map[scene]

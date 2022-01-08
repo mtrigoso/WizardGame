@@ -17,11 +17,9 @@ class WizardGame:
         self._game_state = GameState.instance()
         self._game_state = GameState.instance()
         # self._game_state = GameState()
-        enemies = [
-            Rock(50, 50),
+        objects_in_scene = [
             Rock(100, 100),
             Rock(0, 90),
-            Rock(140, 50),
             Troll(25, 25),
             Troll(120, 75),
             Troll(90, 50),
@@ -29,9 +27,15 @@ class WizardGame:
             Troll(120, 0),
         ]
 
+        self._game_state.scene_settings[Scene.FIRST_SCENE] = {}
+        self._game_state.scene_settings[Scene.FIRST_SCENE]["min_y"] = 0
+
+        self._game_state.scene_settings[Scene.SECOND_SCENE] = {}
+        self._game_state.scene_settings[Scene.SECOND_SCENE]["max_y"] = self.SCREEN_HEIGHT
+
         # load the scenes with their appropiate objects
         self._game_state.set_objects_in_scene(
-            Scene.FIRST_SCENE, [self._player] + enemies)
+            Scene.FIRST_SCENE, [self._player] + objects_in_scene)
 
         self._game_state.set_objects_in_scene(
             Scene.SECOND_SCENE, [])
