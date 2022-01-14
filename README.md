@@ -1,12 +1,7 @@
 # WizardGame
 --- 
 
-<p float="left">
-    <img src="images/wizardgame.png" alt="Logo">
-</p>
-
----
-Play as a powerful Wizard and kill all the trolls! 
+Play as a powerful Wizard and kill the trolls! 
 
 Move past the top of the screen to move to the second level.
 
@@ -14,6 +9,11 @@ Move past the top of the screen to move to the second level.
 
 - [Python](https://www.python.org/)
 - [Pyxel](https://github.com/kitao/pyxel)
+
+### Starting the Game
+
+Clone the repository then: 
+`./run.sh`
 
 ### Controls
 
@@ -27,3 +27,9 @@ Move past the top of the screen to move to the second level.
 | j     | Shoot lightning bolt down       |
 | k     | Shoot lightning bolt up       |
 | l      | Shoot lightning bolt right       |
+
+### Screenshot
+
+<p float="left">
+    <img src="images/wizardgame.png" alt="Logo">
+</p>
