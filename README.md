@@ -1,5 +1,4 @@
 # WizardGame
---- 
 
 Play as a powerful Wizard and kill the trolls! 
 
