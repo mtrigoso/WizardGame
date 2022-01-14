@@ -41,6 +41,8 @@ class FirstScene(SceneObject):
                 self._action_manager.parse_action(
                     game_object, action, self.SCENE_TYPE)
         self._game_state.remove_all_removed_objects(self.SCENE_TYPE)
+    
+        return None
 
     def draw(self):
         # draw the tile map for background

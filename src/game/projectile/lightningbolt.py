@@ -32,6 +32,10 @@ class LightningBolt(GameObject):
 
         if self._move_vector == MoveVector.DOWN:
             return MovementAction(self.x, self.y, self.x, self.y + self._speed, self._move_vector)
+        
+        # TODO: have something other than a random movement be the default - adding this here just so mypy stops complaining
+        return MovementAction(self.x, self.y, self.x, self.y + self._speed, self._move_vector)
+
 
 
     def get_left_up_corner(self) -> Coordinate:

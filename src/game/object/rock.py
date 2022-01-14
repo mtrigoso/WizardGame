@@ -1,4 +1,5 @@
 import random
+from typing import Optional
 from game.action.gameaction import GameAction
 from game.gameobject import GameObject
 from game.gamestate import GameState
@@ -28,7 +29,7 @@ class Rock(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_action(self, game_state: GameState, scene: Scene) -> GameAction:
+    def get_action(self, game_state: GameState, scene: Scene) -> Optional[GameAction]:
         return None
 
     def apply_action(self, action: MovementAction):
