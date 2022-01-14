@@ -12,7 +12,7 @@ from scene.sceneobject import SceneObject
 
 
 class SecondScene(SceneObject):
-    SCENE_TYPE = Scene.SECOND_SCENE
+    SCENE_TYPE: Scene = Scene.SECOND_SCENE
 
     def __init__(self, player: Player, game_state: GameState):
         super().__init__()
@@ -41,6 +41,8 @@ class SecondScene(SceneObject):
                 self._action_manager.parse_action(
                     game_object, action, self.SCENE_TYPE)
         self._game_state.remove_all_removed_objects(self.SCENE_TYPE)
+        
+        return None
 
     def draw(self):
         pyxel.cls(1)

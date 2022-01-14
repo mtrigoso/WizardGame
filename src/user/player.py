@@ -1,4 +1,6 @@
+from optparse import Option
 import time
+from typing import Optional
 import pyxel
 from battle.projectileaction import ProjectileAction
 from game.action.gameaction import GameAction
@@ -46,10 +48,10 @@ class Player(GameObject):
     def get_right_up_corner(self) -> Coordinate:
         return Coordinate(self.x + self._object_width, self.y)
 
-    def get_projectile_action(self, game_state: GameState, scene: Scene) -> GameAction:
+    def get_projectile_action(self, game_state: GameState, scene: Scene) -> Optional[GameAction]:
         curr_time = time.time()
         if curr_time - self._time_since_last_bolt < 0.15:
-            return
+            return None
         self._time_since_last_bolt = curr_time
 
         if pyxel.btn(pyxel.KEY_H):
@@ -63,8 +65,10 @@ class Player(GameObject):
 
         if pyxel.btn(pyxel.KEY_L):
             return ProjectileAction(LightningBolt, MoveVector.RIGHT, self.x + 16, self.y)
+        
+        return None
 
-    def get_action(self, game_state: GameState, scene: Scene) -> GameAction:
+    def get_action(self, game_state: GameState, scene: Scene) -> Optional[GameAction]:
         if pyxel.btn(pyxel.KEY_LEFT):
             return self.go_left()
 

@@ -16,3 +16,5 @@ class ProjectileAction(SpellAction):
     def build_projectile_object(self) -> GameObject:
         if self.projectile_type == LightningBolt:
             return LightningBolt(self.move_vector, self.x, self.y)
+        # TODO: have something other than a lightningbolt be the default - adding this here just so mypy stops complaining
+        return LightningBolt(self.move_vector, self.x, self.y)

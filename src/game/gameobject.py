@@ -1,4 +1,4 @@
-from typing import overload
+from typing import Optional, overload
 from game.action.gameaction import GameAction
 from move.movementaction import MovementAction
 from move.coordinate import Coordinate
@@ -22,24 +22,19 @@ class GameObject(object):
         self.image_num = 0
         self._transparent_color = 0
 
-    @overload
     def get_left_up_corner(self) -> Coordinate:
         pass
 
-    @overload
     def get_left_down_corner(self) -> Coordinate:
         pass
 
-    @overload
     def get_right_down_corner(self) -> Coordinate:
         pass
 
-    @overload
     def get_right_up_corner(self) -> Coordinate:
         pass
 
-    @overload 
-    def get_action(self, game_state, scene: Scene) -> GameAction:
+    def get_action(self, game_state, scene: Scene) -> Optional[GameAction]:
         """
         Get the resulting game action from the given object
 
@@ -49,23 +44,18 @@ class GameObject(object):
         """
         pass
 
-    @overload 
     def apply_action(self, action: MovementAction):
         pass
 
-    @overload 
     def bitmap_x(self) -> int:
         pass
 
-    @overload 
     def bitmap_y(self) -> int:
         pass
 
-    @overload 
     def get_obj_horiz_tilemap_size(self) -> int:
         pass
 
-    @overload 
     def get_obj_vert_tilemap_size(self) -> int:
         pass
 
@@ -75,7 +65,7 @@ class GameObject(object):
     def to_be_removed(self) -> bool:
         return self._to_be_killed
 
-    def set_to_be_removed(self) -> bool:
+    def set_to_be_removed(self):
         self._to_be_killed = True
     
     def can_kill(self) -> bool:

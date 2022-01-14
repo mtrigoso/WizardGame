@@ -5,13 +5,12 @@ from scene import Scene
 
 
 class SceneObject(object):
+    SCENE_TYPE: Scene
     def __init__(self) -> None:
         super().__init__()
 
-    @overload
     def update(self) -> Scene | None:
         pass
 
-    @overload
     def draw(self):
         pass
